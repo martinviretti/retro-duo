@@ -145,7 +145,26 @@
         <a class="button button-primary" href="demo.html">Abrir demo <span aria-hidden="true">→</span></a>
       </div>
 
-      <div class="game-grid" id="game-grid" aria-live="polite"></div>
+      <div class="view-switch" role="tablist" aria-label="Modo de vista de la biblioteca">
+        <button class="view-switch-btn active" type="button" role="tab" aria-selected="true" data-view="showcase">
+          <span aria-hidden="true">◈</span> Vitrina 3D
+        </button>
+        <button class="view-switch-btn" type="button" role="tab" aria-selected="false" data-view="grid">
+          <span aria-hidden="true">▦</span> Grilla
+        </button>
+      </div>
+
+      <div class="showcase" id="showcase" data-view-panel="showcase">
+        <button class="showcase-nav prev" type="button" id="showcase-prev" aria-label="Juego anterior">‹</button>
+        <div class="coverflow-stage">
+          <div class="coverflow" id="coverflow"></div>
+        </div>
+        <button class="showcase-nav next" type="button" id="showcase-next" aria-label="Juego siguiente">›</button>
+        <div class="showcase-info" id="showcase-info"></div>
+        <div class="showcase-dots" id="showcase-dots" role="tablist" aria-label="Seleccionar juego"></div>
+      </div>
+
+      <div class="game-grid" id="game-grid" data-view-panel="grid" aria-live="polite" hidden></div>
       <div class="empty-search" id="empty-search" hidden>
         <strong>No encontramos coincidencias.</strong>
         <p>Probá con otro nombre o importá un juego personalizado.</p>

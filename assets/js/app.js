@@ -1,4 +1,5 @@
 import { CATALOG } from './catalog.js';
+import { createCoverflow } from './coverflow.js';
 import { getRom, listRoms, removeRom, saveRom } from './db.js';
 import { DEFAULT_SETTINGS, loadSettings, saveSettings } from './config.js';
 import {
@@ -14,6 +15,7 @@ import {
 } from './utils.js';
 
 const grid = document.getElementById('game-grid');
+const showcase = document.getElementById('showcase');
 const emptySearch = document.getElementById('empty-search');
 const searchInput = document.getElementById('game-search');
 const importDialog = document.getElementById('import-dialog');
@@ -39,6 +41,12 @@ const legalDialog = document.getElementById('legal-dialog');
 let records = new Map();
 let libraryItems = [];
 let contextMenu = null;
+
+const coverflow = createCoverflow(showcase, {
+  onPlay: (item) => { location.href = `player.html?slot=${encodeURIComponent(item.id)}`; },
+  onImport: (item) => openImport(item),
+  onMenu: (anchor, item, record) => showCardMenu(anchor, item, record)
+});
 
 function showToast(message, type = 'success') {
   const toast = document.createElement('div');
@@ -138,16 +146,19 @@ function renderLibrary() {
   buildLibraryItems();
   grid.textContent = '';
   const query = searchInput.value.trim().toLowerCase();
+  const matchesQuery = (item) =>
+    !query || `${item.title} ${item.genre} ${item.note}`.toLowerCase().includes(query);
   let count = 0;
 
   libraryItems.forEach((item) => {
     const card = gameCard(item);
-    const matches = !query || card.dataset.search.includes(query);
+    const matches = matchesQuery(item);
     card.hidden = !matches;
     if (matches) count += 1;
     grid.appendChild(card);
   });
 
+  coverflow.update(libraryItems.filter(matchesQuery), records);
   emptySearch.hidden = count !== 0;
 }
 
@@ -401,8 +412,33 @@ document.getElementById('close-legal').addEventListener('click', () => legalDial
 document.getElementById('legal-done').addEventListener('click', () => legalDialog.close());
 bindGuideTabs();
 
+function setView(view) {
+  document.querySelectorAll('[data-view]').forEach((button) => {
+    const active = button.dataset.view === view;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-selected', String(active));
+  });
+  document.querySelectorAll('[data-view-panel]').forEach((panel) => {
+    panel.hidden = panel.dataset.viewPanel !== view;
+  });
+}
+document.querySelectorAll('[data-view]').forEach((button) => {
+  button.addEventListener('click', () => setView(button.dataset.view));
+});
+
+document.addEventListener('keydown', (event) => {
+  if (['INPUT', 'TEXTAREA', 'SELECT'].includes(event.target.tagName)) return;
+  if (document.querySelector('dialog[open]')) return;
+  if (showcase.hidden) return;
+  if (event.key === 'ArrowLeft') { coverflow.move(-1); event.preventDefault(); }
+  if (event.key === 'ArrowRight') { coverflow.move(1); event.preventDefault(); }
+  if (event.key === 'Enter') {
+    showcase.querySelector('.showcase-actions .button')?.click();
+  }
+});
+
 document.addEventListener('click', (event) => {
-  if (contextMenu && !contextMenu.contains(event.target) && !event.target.closest('.game-menu-button')) closeContextMenu();
+  if (contextMenu && !contextMenu.contains(event.target) && !event.target.closest('.game-menu-button') && !event.target.closest('.showcase-options')) closeContextMenu();
 });
 window.addEventListener('resize', closeContextMenu);
 window.addEventListener('scroll', closeContextMenu, { passive: true });
