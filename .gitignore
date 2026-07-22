@@ -1,0 +1,28 @@
+# Never commit game dumps or disc images.
+roms/
+games/
+private-games/
+*.bin
+*.gen
+*.smd
+*.rom
+*.iso
+*.cue
+*.chd
+*.nes
+*.sfc
+*.smc
+*.gba
+*.gb
+*.gbc
+*.n64
+*.z64
+*.v64
+*.pbp
+*.cso
+
+# Local tooling
+node_modules/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070910">
+  <meta name="description" content="Neon Brawl, demo original y legal de Retro Duo.">
+  <title>Neon Brawl — Retro Duo</title>
+  <link rel="icon" href="assets/icons/controller.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/demo.css">
+</head>
+<body class="demo-page">
+  <a class="skip-link" href="#demo-canvas">Saltar al juego</a>
+
+  <header class="demo-header">
+    <div class="demo-shell demo-header-inner">
+      <a class="brand compact-brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><path d="M18 19h28c8 0 14 7 14 16v6c0 9-7 15-15 13l-8-3H27l-8 3C11 56 4 50 4 41v-6c0-9 6-16 14-16Z" fill="currentColor" opacity=".16"/><path d="M20 25h24c6 0 10 5 10 11v5c0 5-4 8-8 7l-8-3H26l-8 3c-4 1-8-2-8-7v-5c0-6 4-11 10-11Z" fill="none" stroke="currentColor" stroke-width="4"/><path d="M22 31v10M17 36h10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="43" cy="34" r="2.5" fill="currentColor"/><circle cx="48" cy="40" r="2.5" fill="currentColor"/></svg>
+        </span>
+        <span><strong>Neon Brawl</strong><small>Demo original de Retro Duo</small></span>
+      </a>
+      <div class="demo-header-actions">
+        <span class="connection-chip" id="demo-status-chip"><i></i> Listo</span>
+        <button class="button button-ghost button-small" type="button" id="demo-fullscreen">⛶ Pantalla completa</button>
+        <a class="button button-ghost button-small" href="index.html">← Biblioteca</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="demo-shell demo-layout">
+    <section class="demo-game-column" aria-labelledby="demo-title">
+      <div class="demo-stage-card">
+        <div class="demo-stage-topbar">
+          <div>
+            <span>DEMO LEGAL · HTML5 CANVAS</span>
+            <strong id="demo-title">Neon Brawl: Distrito 88</strong>
+          </div>
+          <div class="demo-live-metrics">
+            <span id="wave-label">Nivel 1/5</span>
+            <span id="fps-label">60 FPS</span>
+          </div>
+        </div>
+        <div class="demo-canvas-wrap" id="demo-canvas-wrap">
+          <canvas id="demo-canvas" width="960" height="540" tabindex="0" aria-label="Juego Neon Brawl"></canvas>
+          <div class="demo-focus-tip" id="focus-tip">Hacé clic para activar audio y controles</div>
+        </div>
+        <div class="demo-controls-strip">
+          <div><strong>Jugador 1</strong><span>Flechas · Z golpe · X patada · C especial · Enter</span></div>
+          <div><strong>Jugador 2 local</strong><span>WASD · F golpe · G patada · H especial · Espacio</span></div>
+          <button class="text-button" type="button" id="restart-game">Reiniciar partida</button>
+        </div>
+      </div>
+
+      <div class="demo-info-grid">
+        <article><span>01</span><div><strong>Cinco niveles</strong><p>Cada oleada sube la dificultad y el jefe final cambia de habilidad.</p></div></article>
+        <article><span>02</span><div><strong>Cooperativo real</strong><p>Jugá localmente o conectá al jugador 2 desde otra PC.</p></div></article>
+        <article><span>03</span><div><strong>Sin contenido comercial</strong><p>Gráficos, código, sonidos y mecánicas fueron creados para esta demo.</p></div></article>
+      </div>
+    </section>
+
+    <aside class="demo-online-panel" aria-labelledby="demo-online-title">
+      <div class="panel-heading">
+        <p class="kicker">Prueba completa</p>
+        <h1 id="demo-online-title">Conectar otra PC</h1>
+        <p>Usá esta demo para validar Duo Direct antes de cargar tu juego.</p>
+      </div>
+
+      <div class="demo-connection-state">
+        <div><span>Jugador 2</span><strong id="demo-direct-status">Sin conexión</strong></div>
+        <i id="demo-direct-light"></i>
+      </div>
+
+      <ol class="compact-steps">
+        <li><span>1</span><p>Abrí <a href="remote.html" target="_blank" rel="noopener">Jugador 2 ↗</a> en la otra PC.</p></li>
+        <li><span>2</span><p>Creá la oferta y enviala por mensaje privado.</p></li>
+        <li><span>3</span><p>Pegá aquí la respuesta que te devuelva.</p></li>
+      </ol>
+
+      <button class="button button-primary full-button" type="button" id="demo-create-offer">Crear conexión directa</button>
+      <a class="button button-ghost full-button" href="remote.html" target="_blank" rel="noopener">Abrir pantalla del jugador 2 ↗</a>
+
+      <div class="demo-handshake" id="demo-handshake" hidden>
+        <label>
+          <span>Oferta para enviar</span>
+          <textarea id="demo-offer" rows="5" readonly spellcheck="false"></textarea>
+        </label>
+        <button class="button button-secondary full-button" type="button" id="demo-copy-offer">Copiar oferta</button>
+        <div class="handshake-divider"><span>Respuesta</span></div>
+        <label>
+          <span>Respuesta del jugador 2</span>
+          <textarea id="demo-answer" rows="5" spellcheck="false" placeholder="Pegá aquí la respuesta…"></textarea>
+        </label>
+        <button class="button button-primary full-button" type="button" id="demo-accept-answer">Completar conexión</button>
+      </div>
+
+      <div class="demo-log" id="demo-log" aria-live="polite"></div>
+
+      <details class="troubleshooting">
+        <summary>Qué debería comprobar</summary>
+        <div>
+          <p>La otra PC debe ver el juego, escuchar los efectos y controlar al personaje celeste.</p>
+          <p>En la pantalla remota usá el perfil <strong>Clásico</strong>: A golpea, B patea y C activa el especial.</p>
+          <p>Una vez validado, el mismo flujo se usa con el emulador.</p>
+        </div>
+      </details>
+    </aside>
+  </main>
+
+  <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+  <script type="module" src="assets/js/demo.js"></script>
+</body>
+</html>

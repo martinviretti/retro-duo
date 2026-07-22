@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b13">
+  <meta name="description" content="Biblioteca retro privada para jugar en el navegador con otra persona.">
+  <title>Retro Duo — Tu sala retro privada</title>
+  <link rel="icon" href="assets/icons/controller.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="home-page">
+  <a class="skip-link" href="#library">Saltar a la biblioteca</a>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="site-header shell">
+    <a class="brand" href="index.html" aria-label="Retro Duo, inicio">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" role="img">
+          <path d="M18 19h28c8 0 14 7 14 16v6c0 9-7 15-15 13l-8-3H27l-8 3C11 56 4 50 4 41v-6c0-9 6-16 14-16Z" fill="currentColor" opacity=".16"/>
+          <path d="M20 25h24c6 0 10 5 10 11v5c0 5-4 8-8 7l-8-3H26l-8 3c-4 1-8-2-8-7v-5c0-6 4-11 10-11Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M22 31v10M17 36h10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="43" cy="34" r="2.5" fill="currentColor"/>
+          <circle cx="48" cy="40" r="2.5" fill="currentColor"/>
+        </svg>
+      </span>
+      <span>
+        <strong>Retro Duo</strong>
+        <small>Private browser arcade</small>
+      </span>
+    </a>
+
+    <nav class="header-actions" aria-label="Acciones principales">
+      <a class="button button-ghost button-small" href="remote.html">
+        <span aria-hidden="true">↗</span>
+        Entrar como jugador 2
+      </a>
+      <button class="icon-button" type="button" id="help-button" aria-label="Ver guía de uso" title="Guía de uso">
+        <span aria-hidden="true">?</span>
+      </button>
+      <button class="icon-button" type="button" id="settings-button" aria-label="Abrir configuración" title="Configuración">
+        <span aria-hidden="true">⚙</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="status-dot"></span> Diseñado para dos PC, sin instalar nada</div>
+        <h1>Tu sala retro.<br><span>Vos, tu hijo y el navegador.</span></h1>
+        <p class="hero-lead">Cargá localmente un juego de Sega Mega Drive que estés autorizado a usar, abrilo en el navegador y jugá de a dos mediante una sala o una conexión directa.</p>
+        <div class="hero-actions">
+          <button class="button button-primary" type="button" id="import-main-button">
+            <span aria-hidden="true">＋</span>
+            Importar mi primer juego
+          </button>
+          <a class="button button-secondary" href="demo.html">
+            <span aria-hidden="true">▶</span>
+            Probar demo legal
+          </a>
+        </div>
+        <div class="trust-row" aria-label="Privacidad y funcionamiento">
+          <div><span aria-hidden="true">◉</span><strong>Local</strong><small>La ROM queda en tu dispositivo</small></div>
+          <div><span aria-hidden="true">◇</span><strong>Privado</strong><small>No se sube a este sitio</small></div>
+          <div><span aria-hidden="true">∞</span><strong>Dos modos</strong><small>Sala o conexión directa</small></div>
+        </div>
+      </div>
+
+      <div class="hero-console" aria-hidden="true">
+        <div class="console-glow"></div>
+        <div class="console-frame">
+          <div class="console-topline">
+            <span>RETRO DUO SYSTEM</span>
+            <span class="console-led"></span>
+          </div>
+          <div class="console-screen">
+            <div class="scanlines"></div>
+            <div class="city-silhouette"></div>
+            <div class="pixel-moon"></div>
+            <div class="fighter fighter-one"><span></span></div>
+            <div class="fighter fighter-two"><span></span></div>
+            <div class="screen-copy">
+              <small>PLAYER 1 + PLAYER 2</small>
+              <strong>READY?</strong>
+            </div>
+          </div>
+          <div class="console-controls">
+            <div class="mini-dpad"><i></i><b></b></div>
+            <div class="console-status"><span></span><span></span><span></span></div>
+            <div class="mini-buttons"><i>A</i><i>B</i><i>C</i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works shell" aria-labelledby="how-title">
+      <div class="section-heading compact-heading">
+        <div>
+          <p class="kicker">Flujo simple</p>
+          <h2 id="how-title">De archivo local a partida compartida</h2>
+        </div>
+      </div>
+      <ol class="steps-grid">
+        <li>
+          <span class="step-number">01</span>
+          <div><strong>Importá la ROM</strong><p>Elegí el archivo desde tu PC. Se guarda únicamente en el navegador mediante IndexedDB.</p></div>
+        </li>
+        <li>
+          <span class="step-number">02</span>
+          <div><strong>Abrí el juego</strong><p>Retro Duo inicia EmulatorJS con el núcleo de Sega Mega Drive y tus controles.</p></div>
+        </li>
+        <li>
+          <span class="step-number">03</span>
+          <div><strong>Invitá al jugador 2</strong><p>Usá Netplay si ambos tienen el mismo archivo, o Duo Direct si solo lo tiene el anfitrión.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="library-section shell" id="library" aria-labelledby="library-title">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Biblioteca local</p>
+          <h2 id="library-title">Elegí el juego</h2>
+          <p>Los títulos son accesos visuales. Retro Duo no incluye ni descarga ROMs, BIOS, portadas o archivos comerciales.</p>
+        </div>
+        <div class="library-tools">
+          <label class="search-field">
+            <span class="sr-only">Buscar juego</span>
+            <span aria-hidden="true">⌕</span>
+            <input type="search" id="game-search" placeholder="Buscar en la biblioteca…" autocomplete="off">
+          </label>
+          <button class="button button-secondary button-small" type="button" id="import-custom-button">＋ Otro juego</button>
+        </div>
+      </div>
+
+      <div class="featured-demo" id="demo-card">
+        <div class="demo-art" aria-hidden="true"><span>DEMO</span><i></i><b></b></div>
+        <div class="demo-copy">
+          <span class="pill pill-success">Incluida y legal</span>
+          <h3>Neon Brawl</h3>
+          <p>Una mini experiencia cooperativa creada para probar teclado, joystick y Duo Direct antes de cargar un juego.</p>
+        </div>
+        <a class="button button-primary" href="demo.html">Abrir demo <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="game-grid" id="game-grid" aria-live="polite"></div>
+      <div class="empty-search" id="empty-search" hidden>
+        <strong>No encontramos coincidencias.</strong>
+        <p>Probá con otro nombre o importá un juego personalizado.</p>
+      </div>
+    </section>
+
+    <section class="mode-section shell" aria-labelledby="mode-title">
+      <div class="section-heading compact-heading">
+        <div>
+          <p class="kicker">Multijugador remoto</p>
+          <h2 id="mode-title">Dos caminos, una misma partida</h2>
+        </div>
+      </div>
+      <div class="mode-grid">
+        <article class="mode-card">
+          <span class="mode-tag">Experimental</span>
+          <div class="mode-icon" aria-hidden="true">◎</div>
+          <h3>Sala Netplay</h3>
+          <p>Ambas PC cargan el mismo archivo. Una crea la sala y la otra se une desde el menú del emulador.</p>
+          <ul>
+            <li>Menor complejidad durante el juego</li>
+            <li>Controles de cada jugador sincronizados</li>
+            <li>Requiere servidor de señalización disponible</li>
+          </ul>
+        </article>
+        <article class="mode-card recommended">
+          <span class="mode-tag">Recomendado</span>
+          <div class="mode-icon" aria-hidden="true">⇄</div>
+          <h3>Duo Direct</h3>
+          <p>Solo la PC anfitriona carga el juego. Comparte video y recibe los controles del jugador 2 mediante WebRTC.</p>
+          <ul>
+            <li>Funciona en un sitio estático de GitHub Pages</li>
+            <li>Conexión mediante dos códigos privados</li>
+            <li>Mejor resultado dentro de la misma red</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <div>
+      <strong>Retro Duo</strong>
+      <p>Interfaz privada para emulación local. No afiliada a Sega, EmulatorJS ni a los titulares de los juegos listados.</p>
+    </div>
+    <div class="footer-links">
+      <button type="button" class="text-button" id="footer-legal-button">Uso legal</button>
+      <button type="button" class="text-button" id="footer-help-button">Cómo jugar</button>
+      <a href="README.md">Documentación</a>
+    </div>
+  </footer>
+
+  <dialog class="app-dialog import-dialog" id="import-dialog" aria-labelledby="import-title">
+    <form method="dialog" class="dialog-shell" id="import-form">
+      <button class="dialog-close" value="cancel" aria-label="Cerrar">×</button>
+      <div class="dialog-heading">
+        <span class="dialog-icon" aria-hidden="true">＋</span>
+        <div>
+          <p class="kicker">Almacenamiento local</p>
+          <h2 id="import-title">Importar juego</h2>
+          <p>El archivo se lee y se guarda dentro de este navegador. No se envía a ningún servidor.</p>
+        </div>
+      </div>
+
+      <input type="hidden" id="import-slot-id" value="custom">
+      <label class="field-group">
+        <span>Nombre que verás en la biblioteca</span>
+        <input type="text" id="import-title-input" maxlength="80" required placeholder="Ej.: Streets of Rage 2">
+      </label>
+
+      <label class="drop-zone" id="drop-zone" for="rom-file-input">
+        <input type="file" id="rom-file-input" accept=".bin,.gen,.md,.smd,.zip,.7z" required>
+        <span class="drop-icon" aria-hidden="true">⇧</span>
+        <strong>Elegí o arrastrá el archivo</strong>
+        <small>.bin, .gen, .md, .smd, .zip o .7z</small>
+        <span class="selected-file" id="selected-file" hidden></span>
+      </label>
+
+      <div class="legal-check">
+        <input type="checkbox" id="rights-checkbox" required>
+        <label for="rights-checkbox">Confirmo que tengo autorización para usar este archivo y que no será publicado en el repositorio.</label>
+      </div>
+
+      <div class="dialog-note">
+        <span aria-hidden="true">ⓘ</span>
+        <p>Para Sala Netplay, las dos PC deben seleccionar exactamente el mismo archivo. Retro Duo compara su huella SHA-256 y genera el mismo identificador de juego.</p>
+      </div>
+
+      <div class="dialog-actions">
+        <button class="button button-ghost" value="cancel" type="button" id="cancel-import">Cancelar</button>
+        <button class="button button-primary" type="submit" id="save-rom-button">Guardar en mi biblioteca</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="app-dialog settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+    <form method="dialog" class="dialog-shell" id="settings-form">
+      <button class="dialog-close" value="cancel" aria-label="Cerrar">×</button>
+      <div class="dialog-heading">
+        <span class="dialog-icon" aria-hidden="true">⚙</span>
+        <div>
+          <p class="kicker">Configuración técnica</p>
+          <h2 id="settings-title">Conexión y emulador</h2>
+          <p>Los valores se guardan localmente en este navegador.</p>
+        </div>
+      </div>
+
+      <label class="field-group">
+        <span>Canal de EmulatorJS</span>
+        <select id="cdn-channel">
+          <option value="stable">Stable — recomendado para jugar</option>
+          <option value="latest">Latest — Netplay experimental</option>
+        </select>
+        <small>“Stable” es la opción recomendada. “Latest” puede romperse con cambios del proyecto y se usa solo para probar Netplay.</small>
+      </label>
+
+      <label class="field-group">
+        <span>Servidor de salas Netplay</span>
+        <input type="url" id="netplay-server" placeholder="https://netplay.emulatorjs.org/">
+        <small>Duo Direct no utiliza este servidor.</small>
+      </label>
+
+      <label class="field-group">
+        <span>Servidores ICE para WebRTC</span>
+        <textarea id="ice-servers" rows="7" spellcheck="false"></textarea>
+        <small>Formato JSON. No agregues credenciales privadas a un repositorio público.</small>
+      </label>
+
+      <div class="dialog-actions split-actions">
+        <button class="button button-ghost" type="button" id="reset-settings">Restaurar valores</button>
+        <div>
+          <button class="button button-ghost" value="cancel" type="button" id="cancel-settings">Cancelar</button>
+          <button class="button button-primary" type="submit">Guardar</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="app-dialog guide-dialog" id="guide-dialog" aria-labelledby="guide-title">
+    <div class="dialog-shell">
+      <button class="dialog-close" type="button" id="close-guide" aria-label="Cerrar">×</button>
+      <div class="dialog-heading">
+        <span class="dialog-icon" aria-hidden="true">?</span>
+        <div>
+          <p class="kicker">Guía rápida</p>
+          <h2 id="guide-title">Cómo jugar desde dos PC</h2>
+        </div>
+      </div>
+      <div class="guide-tabs" role="tablist" aria-label="Método de conexión">
+        <button class="guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="netplay">Sala Netplay experimental</button>
+        <button class="guide-tab active" type="button" role="tab" aria-selected="true" data-guide-tab="direct">Duo Direct</button>
+      </div>
+      <div class="guide-panel" data-guide-panel="netplay" hidden>
+        <ol class="guide-steps">
+          <li><span>1</span><div><strong>Importen el mismo archivo</strong><p>En cada PC, entren a Retro Duo y carguen exactamente la misma ROM.</p></div></li>
+          <li><span>2</span><div><strong>Abran el mismo juego</strong><p>El identificador se calcula automáticamente con la huella del archivo.</p></div></li>
+          <li><span>3</span><div><strong>Creá la sala</strong><p>En la barra del emulador, abrí Netplay, elegí “Create a Room” y definí nombre y contraseña.</p></div></li>
+          <li><span>4</span><div><strong>Tu hijo se une</strong><p>Abre Netplay, busca la sala, ingresa la contraseña y queda asignado como jugador 2.</p></div></li>
+        </ol>
+      </div>
+      <div class="guide-panel active" data-guide-panel="direct">
+        <ol class="guide-steps">
+          <li><span>1</span><div><strong>Solo vos abrís el juego</strong><p>En la página del jugador seleccioná “Duo Direct” y generá una oferta.</p></div></li>
+          <li><span>2</span><div><strong>Tu hijo abre “Jugador 2”</strong><p>Pega la oferta recibida y genera una respuesta.</p></div></li>
+          <li><span>3</span><div><strong>Te devuelve la respuesta</strong><p>La pegás en tu PC para completar la conexión.</p></div></li>
+          <li><span>4</span><div><strong>Empiezan a jugar</strong><p>Él ve el video remoto y controla al segundo personaje con teclado o joystick.</p></div></li>
+        </ol>
+      </div>
+      <div class="dialog-actions">
+        <button class="button button-primary" type="button" id="guide-done">Entendido</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="app-dialog legal-dialog" id="legal-dialog" aria-labelledby="legal-title">
+    <div class="dialog-shell">
+      <button class="dialog-close" type="button" id="close-legal" aria-label="Cerrar">×</button>
+      <div class="dialog-heading">
+        <span class="dialog-icon" aria-hidden="true">§</span>
+        <div>
+          <p class="kicker">Uso responsable</p>
+          <h2 id="legal-title">Qué incluye y qué no incluye</h2>
+        </div>
+      </div>
+      <div class="legal-content">
+        <p><strong>Retro Duo incluye:</strong> interfaz, almacenamiento local, integración con EmulatorJS, demo propia y herramientas de conexión.</p>
+        <p><strong>Retro Duo no incluye:</strong> ROMs comerciales, BIOS, claves, portadas oficiales ni descargas de juegos.</p>
+        <p>Usá únicamente archivos para los que tengas autorización. No subas ROMs al repositorio de GitHub, especialmente si el repositorio es público.</p>
+      </div>
+      <div class="dialog-actions">
+        <button class="button button-primary" type="button" id="legal-done">Entendido</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="true"></div>
+  <div class="sr-only" id="live-region" aria-live="polite"></div>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

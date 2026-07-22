@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#070910">
+  <meta name="description" content="Control remoto del jugador 2 para Retro Duo.">
+  <title>Jugador 2 — Retro Duo</title>
+  <link rel="icon" href="assets/icons/controller.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/remote.css">
+</head>
+<body class="remote-page">
+  <a class="skip-link" href="#remote-main">Saltar al control</a>
+
+  <header class="remote-header">
+    <div class="remote-shell remote-header-inner">
+      <a class="brand compact-brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><path d="M18 19h28c8 0 14 7 14 16v6c0 9-7 15-15 13l-8-3H27l-8 3C11 56 4 50 4 41v-6c0-9 6-16 14-16Z" fill="currentColor" opacity=".16"/><path d="M20 25h24c6 0 10 5 10 11v5c0 5-4 8-8 7l-8-3H26l-8 3c-4 1-8-2-8-7v-5c0-6 4-11 10-11Z" fill="none" stroke="currentColor" stroke-width="4"/><path d="M22 31v10M17 36h10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="43" cy="34" r="2.5" fill="currentColor"/><circle cx="48" cy="40" r="2.5" fill="currentColor"/></svg>
+        </span>
+        <span><strong>Retro Duo</strong><small>Jugador 2</small></span>
+      </a>
+      <div class="remote-header-status">
+        <span class="connection-chip" id="connection-chip"><i></i> Sin conexión</span>
+        <a class="button button-ghost button-small" href="index.html">← Biblioteca</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="remote-shell remote-main" id="remote-main">
+    <section class="remote-video-column" aria-labelledby="screen-title">
+      <div class="remote-stage">
+        <div class="remote-stage-bar">
+          <div>
+            <span>TRANSMISIÓN P2P</span>
+            <strong id="screen-title">Pantalla del anfitrión</strong>
+          </div>
+          <div class="remote-stage-actions">
+            <span id="latency-label">Latencia —</span>
+            <button class="icon-button" id="video-fullscreen" type="button" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
+          </div>
+        </div>
+        <div class="video-wrap" id="video-wrap">
+          <video id="remote-video" autoplay playsinline></video>
+          <div class="video-placeholder" id="video-placeholder">
+            <div class="signal-rings" aria-hidden="true"><i></i><i></i><i></i><span>2</span></div>
+            <strong>Esperando al anfitrión</strong>
+            <p>Pegá la oferta que te enviaron para crear la respuesta.</p>
+          </div>
+          <button class="enable-audio" id="enable-audio" type="button" hidden>🔊 Activar sonido</button>
+        </div>
+        <div class="stream-footer">
+          <span><i class="stream-dot"></i> WebRTC cifrado entre navegadores</span>
+          <span>El archivo del juego no llega a esta PC</span>
+        </div>
+      </div>
+
+      <section class="virtual-controller" aria-labelledby="controller-title">
+        <div class="controller-heading">
+          <div>
+            <p class="kicker">Controles remotos</p>
+            <h1 id="controller-title">Jugador 2</h1>
+          </div>
+          <label class="profile-select">
+            <span>Perfil A/B/C</span>
+            <select id="control-profile">
+              <option value="classic">Clásico</option>
+              <option value="swap">A/B invertidos</option>
+              <option value="alternate">Alternativo</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="controller-body">
+          <div class="dpad" aria-label="Cruceta direccional">
+            <button type="button" class="control-button dpad-up" data-control="up" aria-label="Arriba">▲</button>
+            <button type="button" class="control-button dpad-left" data-control="left" aria-label="Izquierda">◀</button>
+            <span class="dpad-center" aria-hidden="true"></span>
+            <button type="button" class="control-button dpad-right" data-control="right" aria-label="Derecha">▶</button>
+            <button type="button" class="control-button dpad-down" data-control="down" aria-label="Abajo">▼</button>
+          </div>
+
+          <div class="center-controls">
+            <button type="button" class="control-button small-control" data-control="select"><span>SELECT</span></button>
+            <button type="button" class="control-button small-control" data-control="start"><span>START</span></button>
+            <small>Teclado: flechas · Z/X/C · Enter</small>
+          </div>
+
+          <div class="face-buttons" aria-label="Botones de acción">
+            <button type="button" class="control-button face-button face-a" data-control="a"><span>A</span></button>
+            <button type="button" class="control-button face-button face-b" data-control="b"><span>B</span></button>
+            <button type="button" class="control-button face-button face-c" data-control="c"><span>C</span></button>
+          </div>
+        </div>
+        <div class="gamepad-row">
+          <span id="gamepad-status"><i></i> Sin joystick detectado</span>
+          <button class="text-button" type="button" id="release-controls">Liberar todos los botones</button>
+        </div>
+      </section>
+    </section>
+
+    <aside class="connection-panel" aria-labelledby="connect-title">
+      <div class="panel-heading">
+        <p class="kicker">Modo fácil</p>
+        <h2 id="connect-title">Unite con un código</h2>
+        <p>Pedile a quien está jugando el código de la sala y escribilo acá.</p>
+      </div>
+
+      <div class="quickjoin" id="quickjoin">
+        <label class="code-field">
+          <span>Código de la sala</span>
+          <input id="room-code-input" class="room-code-input" inputmode="numeric" autocomplete="off"
+                 maxlength="4" placeholder="0000" aria-label="Código de la sala de 4 dígitos">
+        </label>
+        <button class="button button-primary full-button" type="button" id="join-room-button">Unirme a la partida</button>
+      </div>
+
+      <div class="method-switch">
+        <span>o</span>
+        <button class="text-button" type="button" id="toggle-manual-join" aria-expanded="false">usar el modo manual (copiar y pegar)</button>
+      </div>
+
+      <div class="manual-join" id="manual-join" hidden>
+      <ol class="remote-steps">
+        <li class="active" id="step-offer">
+          <span>1</span>
+          <div><strong>Pegá la oferta</strong><p>Es el código generado en la PC anfitriona.</p></div>
+        </li>
+        <li id="step-answer">
+          <span>2</span>
+          <div><strong>Devolvé la respuesta</strong><p>Copiala y mandásela al anfitrión.</p></div>
+        </li>
+        <li id="step-play">
+          <span>3</span>
+          <div><strong>Jugá</strong><p>La pantalla aparecerá al establecerse el enlace.</p></div>
+        </li>
+      </ol>
+
+      <label class="code-field">
+        <span>Oferta del anfitrión</span>
+        <textarea id="guest-offer" rows="7" spellcheck="false" placeholder="Pegá aquí el código que comienza con gz. o b64.…"></textarea>
+      </label>
+      <button class="button button-primary full-button" type="button" id="create-answer">Generar respuesta</button>
+
+      <div class="answer-block" id="answer-block" hidden>
+        <div class="answer-heading"><strong>Respuesta lista</strong><span>Enviásela al anfitrión</span></div>
+        <textarea id="guest-answer" rows="7" readonly spellcheck="false" aria-label="Código de respuesta"></textarea>
+        <button class="button button-secondary full-button" type="button" id="copy-answer">Copiar respuesta</button>
+      </div>
+      </div>
+
+      <div class="connection-state-card">
+        <div><span>Estado</span><strong id="connection-state">Sin conexión</strong></div>
+        <i id="connection-light"></i>
+      </div>
+
+      <details class="troubleshooting">
+        <summary>Ayuda rápida</summary>
+        <div>
+          <p><strong>No conecta:</strong> generen códigos nuevos y hagan el intercambio sin demoras.</p>
+          <p><strong>La imagen no aparece:</strong> revisá que el anfitrión haya pegado tu respuesta.</p>
+          <p><strong>El sonido está bloqueado:</strong> presioná “Activar sonido” sobre el video.</p>
+        </div>
+      </details>
+
+      <div class="privacy-note">
+        <span aria-hidden="true">◇</span>
+        <p>Los códigos pueden incluir direcciones técnicas de red. Compartilos solo dentro de la conversación privada con el anfitrión.</p>
+      </div>
+    </aside>
+  </main>
+
+  <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+  <div class="sr-only" id="live-region" aria-live="polite"></div>
+  <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+  <script type="module" src="assets/js/remote.js"></script>
+</body>
+</html>
