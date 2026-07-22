@@ -23,7 +23,7 @@
 .remote-stage-actions { display: flex; align-items: center; gap: 10px; }
 .remote-stage-actions > span { color: var(--faint); font-size: .67rem; letter-spacing: 0; font-weight: 650; }
 .video-wrap { position: relative; aspect-ratio: 16 / 10; min-height: 420px; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at center, rgba(53,217,255,.05), transparent 50%), #020306; }
-#remote-video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+#remote-video { width: 100%; height: 100%; object-fit: contain; background: #000; image-rendering: pixelated; }
 .video-placeholder { position: absolute; inset: 0; z-index: 2; display: grid; align-content: center; justify-items: center; padding: 28px; text-align: center; background: #030407; }
 .video-placeholder[hidden] { display: none; }
 .video-placeholder strong { margin-top: 20px; font-size: 1.1rem; }

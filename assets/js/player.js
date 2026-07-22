@@ -162,6 +162,9 @@ function createCaptureStream() {
     throw new Error('Este navegador no permite transmitir el canvas. Usá Chrome o Edge actualizado.');
   }
   const stream = canvas.captureStream(30);
+  // "detail" le dice a WebRTC que priorice la nitidez de la imagen (texto,
+  // pixel-art) sobre la fluidez del movimiento, ideal para juegos retro.
+  stream.getVideoTracks().forEach((track) => { track.contentHint = 'detail'; });
   const audioAdded = tryAttachAudio(stream);
   logDirect(audioAdded
     ? 'Video y audio preparados para transmitir.'

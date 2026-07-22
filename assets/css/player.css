@@ -134,13 +134,14 @@
   justify-content: center;
   overflow: hidden;
 }
-/* El canvas conserva su proporción y nunca supera el marco. */
+/* El canvas llena el marco manteniendo su proporción (object-fit: contain
+   => letterbox en vez de deformar). image-rendering: pixelated conserva el
+   pixel-art nítido al escalar, en lugar de verse borroso. */
 #game canvas {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  image-rendering: pixelated;
 }
 
 .emulator-loading,

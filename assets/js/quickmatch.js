@@ -7,6 +7,7 @@
 // PeerJS se carga desde un <script> en la página y queda como window.Peer.
 
 import { DEFAULT_SETTINGS, ROOM_ID_PREFIX, buildPeerOptions } from './config.js';
+import { boostVideoQuality } from './p2p.js';
 
 const CODE_DIGITS = 4;
 // PeerJS no siempre avisa cuando una sala no existe: cortamos por tiempo.
@@ -136,6 +137,8 @@ export class QuickHost {
       // El anfitrión inicia la llamada de video/audio hacia el jugador 2.
       try {
         this.mediaCall = this.peer.call(conn.peer, this.stream);
+        // Subimos la calidad una vez que la conexión negoció los senders.
+        setTimeout(() => boostVideoQuality(this.mediaCall?.peerConnection), 1500);
       } catch (error) {
         console.warn('No se pudo transmitir el video al jugador 2.', error);
       }

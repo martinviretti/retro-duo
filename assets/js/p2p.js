@@ -75,6 +75,24 @@ export function waitForIceComplete(peer, timeoutMs = 15000) {
   });
 }
 
+// Sube el bitrate del video y prioriza mantener la resolución (nitidez) por
+// encima del framerate. En red local hay ancho de banda de sobra, así que el
+// pixel-art se ve mucho más definido que con los valores por defecto de WebRTC.
+export async function boostVideoQuality(peerConnection, kbps = 5000) {
+  if (!peerConnection?.getSenders) return;
+  const sender = peerConnection.getSenders().find((s) => s.track?.kind === 'video');
+  if (!sender) return;
+  try {
+    const params = sender.getParameters();
+    if (!params.encodings || !params.encodings.length) params.encodings = [{}];
+    params.encodings[0].maxBitrate = kbps * 1000;
+    params.degradationPreference = 'maintain-resolution';
+    await sender.setParameters(params);
+  } catch (error) {
+    console.debug('No se pudo ajustar la calidad de video.', error);
+  }
+}
+
 export function connectionLabel(state) {
   const labels = {
     new: 'Preparando',
@@ -110,6 +128,7 @@ export class DirectHost {
     });
 
     stream.getTracks().forEach((track) => this.peer.addTrack(track, stream));
+    await boostVideoQuality(this.peer);
     this.channel = this.peer.createDataChannel('retro-duo-controls', {
       ordered: true
     });
